@@ -1,0 +1,19 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: backend_app
+    restart: unless-stopped
+    ports:
+      - "${APP_PORT:-8000}:8000"
+    env_file:
+      - .env
+    environment:
+      - APP_NAME=${APP_NAME:-backend-template-python}
+      - APP_ENV=${APP_ENV:-development}
+      - APP_PORT=${APP_PORT:-8000}
+      - APP_HOST=0.0.0.0
+      - DEBUG=${DEBUG:-True}
+    volumes:
+      - ./src:/app/src
